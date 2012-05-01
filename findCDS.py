@@ -60,13 +60,17 @@ print "Initialization done."
 # INITIALIZATION END
 
 def choose(setOfProblems):
+    print 'Choose'
     temp = []
     for problem in setOfProblems:
         temp.append(len(problem[1]))
 
+    print "temp: ", temp
+
     return setOfProblems[temp.index(max(temp))]
 
 def expand(subproblem):
+    print 'Expand'
     temp = []
     for m in subproblem[2]:
         newC = list(set(subproblem[0]) | set([m]))
@@ -80,6 +84,7 @@ def expand(subproblem):
     return temp
 
 def lowerBound(subproblem):
+    print 'lowerBound'
     tempV = [x for x in G.nodes() if x not in subproblem[0]].sort()
     
     CEdges = set([])

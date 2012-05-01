@@ -38,7 +38,7 @@ for v in G.nodes():
         T.extend(G.neighbors(v))
     if G.degree(v) == (G.number_of_nodes() - 1):
         T = [v]
-        break
+		return T
 
 #remove duplicates
 T = list(set(T))
@@ -47,8 +47,11 @@ print 'T: ', T
 
 M = []
 
-for v in T:
-    M.extend(G.neighbors(v))
+if (T==[]):
+	M = G.nodes()
+else:
+	for v in T:
+		M.extend(G.neighbors(v))
 
 p0 = [T,[], M]
 
@@ -86,7 +89,7 @@ def expand(subproblem):
         newN = [x for x in G.neighbors(m) if x not in subproblem[0]]
         newM = []
         for v in newC:
-            newM.extend(G.neighbors(v))
+            newM.extend(x for x in G.neighbors(v) if x not in newC)
         if newN:
             temp.append([newC, newN, newM])
     
@@ -135,10 +138,16 @@ while S: #while S is not empty
     Z = expand(P_i)
 
     for subproblem in Z:
+	#change your if statement, just use the verifyer
         if (len(node_boundary(G,subproblem[0]))+len(subproblem[0]) == G.number_of_nodes()) and is_connected(G.subgraph(subproblem[0])):
             bestSoFar = subproblem[0]
         elif lowerBound(subproblem) < len(bestSoFar):
-            S.add(subproblem)
+			for subproblem1 in S:
+				if (subproblem1[0] == subproblem[0]):
+					S.remove(subproblem1)
+					if (len(subproblem[1])<len(subproblem1[1])):
+						subproblem = subproblem1
+			S.add(subproblem)
 
 
 print "time to write answer"

@@ -100,7 +100,7 @@ def expand(subproblem):
 
 def lowerBound(subproblem):
     print 'lowerBound'
-    tempV = [x for x in G.nodes() if x not in subproblem[0]].sort()
+    tempV = set([x for x in G.nodes() if x not in subproblem[0]])
     
     CEdges = set([])
 
@@ -120,7 +120,7 @@ def lowerBound(subproblem):
 
     while (limit < len(tempGraph.nodes())-components):
         h = 0
-        highestDegreeV = null
+        highestDegreeV = None
         for v in tempGraph.nodes():
             if tempGraph.degree(v) > h:
                 h = tempGraph.degree(v)
@@ -150,7 +150,7 @@ while S: #while S is not empty
                     S.remove(subproblem1)
                     if (len(subproblem[1])<len(subproblem1[1])):
                         subproblem = subproblem1
-            S.add(subproblem)
+            S.append(subproblem)
 
 
 print "time to write answer"

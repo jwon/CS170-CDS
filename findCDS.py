@@ -14,7 +14,7 @@ from networkx import *
 
 # read example in as an adjacency list
 # watch out for trailing whitespace!
-G=read_adjlist(path="hw13_5.adjlist",delimiter=" ",nodetype=int)
+G=read_adjlist(path="0.adjlist.translated",delimiter=" ",nodetype=int)
 
 # print out the graph
 print 'adjacency list of the input is:'
@@ -67,6 +67,21 @@ for v in G1.nodes():
     if G1.degree(v) == 1:
         bestSoFar.remove(v)
 
+keepGoing = True
+while keepGoing:
+    min = G.number_of_nodes()
+    lowestDegreeV = None
+    for v in bestSoFar:
+        if G.degree(v)<min:
+            min = G.degree(v)
+            lowestDegreeV = v
+    tempList = bestSoFar
+    tempList.remove(v)
+    if len(node_boundary(G,tempList))+len(tempList) == G.number_of_nodes() and is_connected(G.subgraph(tempList)):
+        bestSoFar = tempList
+    else:
+            keepGoing = False
+
 print "p0: ", p0
 print "bestSoFar: ", bestSoFar
 
@@ -78,7 +93,7 @@ def choose(setOfProblems):
     #print 'Choose'
     temp = []
     for problem in setOfProblems:
-        temp.append(len(problem[1]))
+        temp.append(len(problem[2]))
 
     #print "temp: ", temp
 
@@ -134,29 +149,31 @@ def lowerBound(subproblem):
     return (minimum + len(subproblem[0]))
 
 
-
+count = 0
 
 while S: #while S is not empty
-    print "S has this many elements: ", len(S) 
+    print len(S)
+    #print "bestSoFar: ", bestSoFar
+    count+= 1
     P_i = choose(S)
     S.remove(P_i)
     Z = expand(P_i)
 
     for subproblem in Z:
-    #change your if statement, just use the verifyer
         if (len(node_boundary(G,subproblem[0]))+len(subproblem[0]) == G.number_of_nodes()) and is_connected(G.subgraph(subproblem[0])):
             bestSoFar = subproblem[0]
         elif lowerBound(subproblem) < len(bestSoFar):
             for subproblem1 in S:
-                if (subproblem1[0] == subproblem[0]):
+                if subproblem1[0] == subproblem[0]:
                     S.remove(subproblem1)
-                    if (len(subproblem[1])<len(subproblem1[1])):
-                        subproblem = subproblem1
+                    break
             S.append(subproblem)
-
+    
 
 print "time to write answer"
+print "we looked at", count, "subproblems"
 f = open('my_answer.txt', 'w')
+print "bestSoFar: ", bestSoFar
 f.write(str(bestSoFar))
 f.close()
 

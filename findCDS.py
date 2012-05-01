@@ -99,7 +99,7 @@ def expand(subproblem):
     return temp
 
 def lowerBound(subproblem):
-    print 'lowerBound'
+   # print 'lowerBound'
     tempV = set([x for x in G.nodes() if x not in subproblem[0]])
     
     CEdges = set([])
@@ -137,7 +137,9 @@ def lowerBound(subproblem):
 
 
 while S: #while S is not empty
+    print "S has this many elements: ", len(S) 
     P_i = choose(S)
+	S.remove(P_i)
     Z = expand(P_i)
 
     for subproblem in Z:

@@ -41,6 +41,7 @@ for v in G.nodes():
         f = open('my_answer.txt', 'w')
         f.write(T)
         f.close()
+        quit()
 
 #remove duplicates
 T = list(set(T))
@@ -62,8 +63,8 @@ S = [p0]
 G1 = minimum_spanning_tree(G)
 bestSoFar = G1.nodes()
 
-for v in G.nodes():
-    if G.degree(v) == 1:
+for v in G1.nodes():
+    if G1.degree(v) == 1:
         bestSoFar.remove(v)
 
 print "p0: ", p0

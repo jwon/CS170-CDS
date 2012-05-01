@@ -1,8 +1,9 @@
 """
-(author: Raf 4/18/2012)
-Simple verifyier for the connected dominating set problem.
-For more help on NetworkX, start here:
-  http://networkx.lanl.gov/tutorial/tutorial.html
+Find Connected Dominating Set
+Authors:
+James Won (cs170-by)
+Alexander Javad (cs170-cy)
+Timothy Ko (cs170-dv)
 """
 
 import sys
@@ -34,10 +35,15 @@ T = []
 
 for v in G.nodes():
     if G.degree(v) == 1:
-        T.append(v)
+        T.extend(G.neighbors(v))
     if G.degree(v) == (G.number_of_nodes() - 1):
         T = [v]
         break
+
+#remove duplicates
+T = list(set(T))
+
+print 'T: ', T
 
 M = []
 
@@ -55,22 +61,25 @@ for v in G.nodes():
     if G.degree(v) == 1:
         bestSoFar.remove(v)
 
+print "p0: ", p0
+print "bestSoFar: ", bestSoFar
+
 print "Initialization done."
 
 # INITIALIZATION END
 
 def choose(setOfProblems):
-    print 'Choose'
+    #print 'Choose'
     temp = []
     for problem in setOfProblems:
         temp.append(len(problem[1]))
 
-    print "temp: ", temp
+    #print "temp: ", temp
 
     return setOfProblems[temp.index(max(temp))]
 
 def expand(subproblem):
-    print 'Expand'
+    #print 'Expand'
     temp = []
     for m in subproblem[2]:
         newC = list(set(subproblem[0]) | set([m]))

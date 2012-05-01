@@ -139,7 +139,7 @@ def lowerBound(subproblem):
 while S: #while S is not empty
     print "S has this many elements: ", len(S) 
     P_i = choose(S)
-	S.remove(P_i)
+    S.remove(P_i)
     Z = expand(P_i)
 
     for subproblem in Z:

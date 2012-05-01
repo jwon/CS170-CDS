@@ -14,7 +14,7 @@ from networkx import *
 
 # read example in as an adjacency list
 # watch out for trailing whitespace!
-G=read_adjlist(path="0.adjlist.translated",delimiter=" ",nodetype=int)
+G=read_adjlist(path="hw13_5.adjlist",delimiter=" ",nodetype=int)
 
 # print out the graph
 print 'adjacency list of the input is:'
@@ -39,7 +39,7 @@ for v in G.nodes():
     if G.degree(v) == (G.number_of_nodes() - 1):
         T = [v]
         f = open('my_answer.txt', 'w')
-        f.write(str(T))
+        f.write(' '.join(map(str, T)))
         f.close()
         quit()
 
@@ -174,7 +174,7 @@ print "time to write answer"
 print "we looked at", count, "subproblems"
 f = open('my_answer.txt', 'w')
 print "bestSoFar: ", bestSoFar
-f.write(str(bestSoFar))
+f.write(' '.join(map(str, bestSoFar)))
 f.close()
 
 

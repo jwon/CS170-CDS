@@ -38,7 +38,9 @@ for v in G.nodes():
         T.extend(G.neighbors(v))
     if G.degree(v) == (G.number_of_nodes() - 1):
         T = [v]
-        return T
+        f = open('my_answer.txt', 'w')
+        f.write(T)
+        f.close()
 
 #remove duplicates
 T = list(set(T))

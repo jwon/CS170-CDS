@@ -39,7 +39,7 @@ for v in G.nodes():
     if G.degree(v) == (G.number_of_nodes() - 1):
         T = [v]
         f = open('my_answer.txt', 'w')
-        f.write(T)
+        f.write(str(T))
         f.close()
         quit()
 
@@ -131,7 +131,7 @@ def lowerBound(subproblem):
         limit += h
         minimum += 1
 
-    return minimum
+    return (minimum + len(subproblem[0]))
 
 
 

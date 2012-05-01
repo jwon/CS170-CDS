@@ -157,7 +157,7 @@ while S: #while S is not empty
 
 print "time to write answer"
 f = open('my_answer.txt', 'w')
-f.write(bestSoFar)
+f.write(str(bestSoFar))
 f.close()
 
 
